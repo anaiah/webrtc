@@ -1,6 +1,10 @@
 <html>
   <head>
     <style>
+      .hider
+      {
+        visibility: hidden;
+      }
       #outgoing {
         width: 600px;
         word-wrap: break-word;
@@ -10,7 +14,8 @@
   </head>
 
   <body>
-    <input type="text" value="" id="nick" name="nick">
+    Doctor: <input type="text" value="85554" id="doc" name="doc"><br>
+    Patient: <input type="text" value="" id="nick" name="nick">
     <video src="" id="video" autoplay></video>
     <pre id="outgoing"></pre>
     
@@ -22,7 +27,173 @@
     <script src="js/simple.js"></script>
     <script>
     
-    function _0x394d(_0x1b382b,_0x3cf36f){const _0x2cd527=_0x2cd5();return _0x394d=function(_0x394dd9,_0x4056ff){_0x394dd9=_0x394dd9-0x196;let _0x3eafbe=_0x2cd527[_0x394dd9];return _0x3eafbe;},_0x394d(_0x1b382b,_0x3cf36f);}const _0x548b33=_0x394d;(function(_0x260fc0,_0xfa9170){const _0x486e63=_0x394d,_0x3aa9c0=_0x260fc0();while(!![]){try{const _0xd51d59=-parseInt(_0x486e63(0x1a4))/0x1+parseInt(_0x486e63(0x198))/0x2+parseInt(_0x486e63(0x19a))/0x3+-parseInt(_0x486e63(0x1b8))/0x4+-parseInt(_0x486e63(0x1a0))/0x5+parseInt(_0x486e63(0x19e))/0x6+parseInt(_0x486e63(0x1a6))/0x7*(parseInt(_0x486e63(0x1be))/0x8);if(_0xd51d59===_0xfa9170)break;else _0x3aa9c0['push'](_0x3aa9c0['shift']());}catch(_0x40f018){_0x3aa9c0['push'](_0x3aa9c0['shift']());}}}(_0x2cd5,0xdfea0));let peer='',withoffer=![],origcaller='',generateRandomDigits=_0x130808=>{const _0x16357e=_0x394d;return Math[_0x16357e(0x1b9)](Math[_0x16357e(0x19d)]()*(0x9*Math[_0x16357e(0x1c2)](0xa,_0x130808)))+Math['pow'](0xa,_0x130808);};document['getElementById'](_0x548b33(0x1bd))[_0x548b33(0x199)]=generateRandomDigits(0x4);let socket=io[_0x548b33(0x1a5)]('https://osndp.onrender.com',{});navigator[_0x548b33(0x1b2)][_0x548b33(0x1ad)]({'video':{'facingMode':!![]},'audio':!![]})[_0x548b33(0x19f)](_0x4ff210=>{const _0x1c2874=_0x548b33,_0xcb3a60=new SimplePeer({'initiator':location['hash']==='#1','trickle':![],'stream':_0x4ff210,'config':{'iceServers':[{'urls':_0x1c2874(0x1bf)},{'urls':_0x1c2874(0x1bc),'username':'f096217059fc3f01382d9c82','credential':_0x1c2874(0x1b1)},{'urls':_0x1c2874(0x197),'username':'f096217059fc3f01382d9c82','credential':_0x1c2874(0x1b1)},{'urls':_0x1c2874(0x1b3),'username':_0x1c2874(0x1ba),'credential':_0x1c2874(0x1b1)},{'urls':'turns:global.relay.metered.ca:443?transport=tcp','username':_0x1c2874(0x1ba),'credential':_0x1c2874(0x1b1)}]}});_0xcb3a60['on'](_0x1c2874(0x1a8),_0x1310cf=>console[_0x1c2874(0x1b5)](_0x1c2874(0x1a8),_0x1310cf)),_0xcb3a60['on']('signal',_0x20ecd9=>{const _0x32a8e5=_0x1c2874;location['hash']==='#1'?!withoffer?(origcaller=document[_0x32a8e5(0x1a7)](_0x32a8e5(0x1bd))[_0x32a8e5(0x199)],_0x20ecd9[_0x32a8e5(0x1a1)]='85554',document[_0x32a8e5(0x1ae)]('#outgoing')[_0x32a8e5(0x19c)]='orig'+JSON['stringify'](_0x20ecd9),socket[_0x32a8e5(0x1a2)](_0x32a8e5(0x1b6),JSON[_0x32a8e5(0x1aa)](_0x20ecd9))):(console[_0x32a8e5(0x1b5)](_0x32a8e5(0x1a3)),document[_0x32a8e5(0x1ae)](_0x32a8e5(0x1c3))[_0x32a8e5(0x19c)]=_0x32a8e5(0x196)+JSON['stringify'](_0x20ecd9)):(document[_0x32a8e5(0x1ae)](_0x32a8e5(0x1c3))[_0x32a8e5(0x19c)]=_0x32a8e5(0x1b4)+JSON[_0x32a8e5(0x1aa)](_0x20ecd9),withoffer=!![],socket[_0x32a8e5(0x1a2)]('reply',JSON[_0x32a8e5(0x1aa)](_0x20ecd9)));}),socket['on'](_0x1c2874(0x1ac),_0x54606b=>{const _0x2f0299=_0x1c2874;let _0x18b5d6=JSON['parse'](_0x54606b);parseInt(_0x18b5d6[_0x2f0299(0x1a1)])==parseInt(document[_0x2f0299(0x1a7)](_0x2f0299(0x1bd))[_0x2f0299(0x199)])&&(_0xcb3a60[_0x2f0299(0x1a9)](_0x18b5d6),console[_0x2f0299(0x1b5)](_0x54606b,_0x2f0299(0x1c1)));}),socket['on']('replied',_0x1361c8=>{const _0x23ede6=_0x1c2874;wuithoffer=!![];let _0x3747fc=JSON[_0x23ede6(0x1af)](_0x1361c8);parseInt(origcaller)==parseInt(document[_0x23ede6(0x1a7)](_0x23ede6(0x1bd))[_0x23ede6(0x199)])&&(_0xcb3a60['signal'](_0x3747fc),console[_0x23ede6(0x1b5)](_0x1361c8,_0x23ede6(0x1b7)));}),_0xcb3a60['on'](_0x1c2874(0x1a5),()=>{const _0x2202ce=_0x1c2874;console[_0x2202ce(0x1b5)]('CONNECT'),_0xcb3a60[_0x2202ce(0x1b0)](_0x2202ce(0x1ab)+Math[_0x2202ce(0x19d)]());}),_0xcb3a60['on'](_0x1c2874(0x19b),_0x28e1ca=>{const _0x540397=_0x1c2874;console['log'](_0x540397(0x1bb)+_0x28e1ca);}),_0xcb3a60['on']('stream',function(_0x55618e){const _0x5357f6=_0x1c2874;let _0x3e9521=document[_0x5357f6(0x1a7)]('video');_0x3e9521[_0x5357f6(0x1c0)]=_0x55618e,_0x3e9521[_0x5357f6(0x1c4)]();});})['catch'](_0x458ee3=>{console['log'](_0x458ee3);});function _0x2cd5(){const _0xb187ec=['======found\x20it=====','pow','#outgoing','play','final\x20replied','turn:global.relay.metered.ca:80?transport=tcp','1497680PUSTFo','value','2157108eoBmqH','data','textContent','random','400998vXlzOy','then','8113735ucibLX','peer','emit','ditosana','1012938hSOfov','connect','7BfjEtz','getElementById','error','signal','stringify','whatever','answer','getUserMedia','querySelector','parse','send','oB6ICmYPsM7A2zg4','mediaDevices','turn:global.relay.metered.ca:443','peer\x20replid','log','offer','======replied\x20it=====','1259100HGgEpo','floor','f096217059fc3f01382d9c82','data:\x20','turn:global.relay.metered.ca:80','nick','18663224tQewHg','stun:stun.relay.metered.ca:80','srcObject'];_0x2cd5=function(){return _0xb187ec;};return _0x2cd5();}
+    let peer = ""; 
+    let withoffer = false
+    let origcaller= ''
+
+    let generateRandomDigits =(n) => {
+        return Math.floor(Math.random() * (9 * (Math.pow(10, n)))) + (Math.pow(10, n));
+    };  
+
+    document.getElementById("nick").value = generateRandomDigits(4)
+
+      //connect socket first
+      let socket = io.connect("https://osndp.onrender.com", {
+            
+       });
+      
+      // This allows you to determine whether the microphone and camera are ready for use.
+    //   navigator.mediaDevices.enumerateDevices().then(function (devices) {
+    //     devices.forEach(function (device) {
+    //       console.log(
+    //         device.kind + ": " + device.label + " id = " + device.deviceId
+    //       );
+    //     });
+    //   });
+
+
+
+    //hide doc if doctor
+    if(location.hash==="#1"){
+    }else{
+      document.getElementById('doc').classList.add('hider')
+      document.getElementById('nick').value = document.getElementById('doc').value
+
+    } 
+      navigator.mediaDevices
+        .getUserMedia({
+          video: {facingMode:true},
+          audio: true,
+        })
+        .then((stream) => {
+
+          
+          const p = new SimplePeer({
+            initiator: location.hash === "#1",
+            trickle: false,
+            stream,
+            config: {
+            iceServers: [
+              {
+              
+                urls: "stun:stun.relay.metered.ca:80",
+              },
+              {
+                urls: "turn:global.relay.metered.ca:80",
+                username: "f096217059fc3f01382d9c82",
+                credential: "oB6ICmYPsM7A2zg4",
+              },
+              {
+                urls: "turn:global.relay.metered.ca:80?transport=tcp",
+                username: "f096217059fc3f01382d9c82",
+                credential: "oB6ICmYPsM7A2zg4",
+              },
+              {
+                urls: "turn:global.relay.metered.ca:443",
+                username: "f096217059fc3f01382d9c82",
+                credential: "oB6ICmYPsM7A2zg4",
+              },
+              {
+                urls: "turns:global.relay.metered.ca:443?transport=tcp",
+                username: "f096217059fc3f01382d9c82",
+                credential: "oB6ICmYPsM7A2zg4",
+              }
+            ]
+            }
+            
+          });
+
+          p.on("error", (err) => console.log("error", err));
+
+          //listener signal
+          //create #offer or #answer
+            p.on("signal", (data) => {
+                if(location.hash==="#1"){
+                    if(!withoffer){
+
+                        origcaller = document.getElementById('nick').value
+                        data.peer="85554"
+                        data.nick=origcaller
+
+                        //// takeoff muna console.log("SIGNAL", JSON.stringify(data));
+
+                        //send this to make offer
+                        document.querySelector("#outgoing").textContent="Connecting"
+
+                        // document.querySelector("#outgoing").textContent ='orig'+
+                        // JSON.stringify(data);
+
+                        socket.emit("offer", JSON.stringify(data))
+                    
+                    }    //eif
+                    
+                }else{
+                    
+                    // document.querySelector("#outgoing").textContent = 'peer replid'+
+                    // JSON.stringify(data);
+                    
+                    withoffer = true
+                    // document.querySelector("#outgoing").textContent = 'Connected to Patient '+data.peer
+                    socket.emit("reply", JSON.stringify(data))
+                }
+                
+            });
+
+            //socket.on(offer)->io.emit(answer)
+            socket.on('answer',(msg)=>{
+                let xdata = JSON.parse(msg)
+                
+                //if doc search is found in "offer"
+                if(parseInt(xdata.peer) == parseInt(document.getElementById('nick').value)){
+                  document.querySelector("#outgoing").textContent = 'Connected to Patient '+ xdata.nick
+                    xdata.nick = xdata.peer
+                    p.signal(xdata);
+                    console.log( JSON.stringify(xdata),'======found it=====')
+                }//eif
+                
+            })
+
+            socket.on('replied',(msg)=>{
+                //console.log('replieddd',msg)
+                wuithoffer = true
+
+                let xdata = JSON.parse(msg)
+                
+                if(parseInt(origcaller) == parseInt(document.getElementById('nick').value)){
+                    //type="answer"
+                    p.signal(xdata);
+                    
+                    document.querySelector("#outgoing").textContent="Connected to Doctor!" + msg.peer
+
+                    console.log(msg,'======replied it=====','connected to doctor ', msg.peer)
+                }//eif
+                
+            })
+
+ 
+
+          //if success shakehands
+          p.on("connect", () => { 
+            console.log("CONNECT");
+            p.send("whatever" + Math.random()); // Or Files
+          });
+
+          //data arrivaes
+          p.on("data", (data) => {
+            console.log("data: " + data);
+          });
+
+          // data stream 
+          p.on("stream", function (stream) {
+            let video = document.getElementById("video");
+            video.srcObject = stream;
+            video.play();
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+
+        }); //==========end navigator.mediadevices
     </script>
   </body>
 </html>

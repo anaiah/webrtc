@@ -18,18 +18,70 @@ let renderVideo = (stream) => {
   videoEl.srcObject = stream;
 };
 
+
+let playVideoFromCamera = async () => {
+  console.log('...playing local')
+try{
+      const constraints = {'video': true, 'audio': true};
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      const videoElement = document.querySelector('#local-video');
+      
+      videoElement.srcObject = stream;
+      
+      videoElement.onloadedmetadata = () => {
+        videoElement.play();
+      };
+      
+  } catch(error) {
+      console.error('Error opening video camera.', error);
+  }
+
+}
+
+
+
+
 // Register with the peer server
 var peer = new Peer(generateRandomDigits(5),{
-  config: {'iceServers': [ {url:'stun:stun.iptel.org'},
-    {url:'stun:stun3.l.google.com:19302'},
-{url:'stun:stun4.l.google.com:19302'},
-  ]} /* Sample servers, please use appropriate ones */
+  config: {
+
+    iceServers: [
+      {
+      
+        urls: "stun:stun.relay.metered.ca:80",
+      },
+      {
+        urls: "turn:global.relay.metered.ca:80",
+        username: "f096217059fc3f01382d9c82",
+        credential: "oB6ICmYPsM7A2zg4",
+      },
+      {
+        urls: "turn:global.relay.metered.ca:80?transport=tcp",
+        username: "f096217059fc3f01382d9c82",
+        credential: "oB6ICmYPsM7A2zg4",
+      },
+      {
+        urls: "turn:global.relay.metered.ca:443",
+        username: "f096217059fc3f01382d9c82",
+        credential: "oB6ICmYPsM7A2zg4",
+      },
+      {
+        urls: "turns:global.relay.metered.ca:443?transport=tcp",
+        username: "f096217059fc3f01382d9c82",
+        credential: "oB6ICmYPsM7A2zg4",
+      }
+    ]
+
+  } /* Sample servers, please use appropriate ones */
 });
   
 //console.log(peer)
 
 peer.on('open', (id) => {
   logMessage('PEER ID: ' + id);
+  //play local
+  playVideoFromCamera()
+
 });
 peer.on('error', (error) => {
   logMessage(error);

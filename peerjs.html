@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeerJS</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
     <script>
-let generateRandomDigits =(n) => {
-  return Math.floor(Math.random() * (9 * (Math.pow(10, n)))) + (Math.pow(10, n));
-};
+      let generateRandomDigits =(n) => {
+        return Math.floor(Math.random() * (9 * (Math.pow(10, n)))) + (Math.pow(10, n));
+      };
 
     </script>
     
@@ -27,7 +29,16 @@ body {
   font-family: sans-serif;
   margin: 2em 1em;
   line-height: 1.5em;
+
 }
+
+video {
+    border: 2px solid rgba(34, 34, 34, 0.192);
+    width: 220px;
+    height: 140px;
+    border-radius: 8px;
+}
+
 
 h1 {
   font-style: italic;
@@ -78,9 +89,22 @@ footer {
 </head>
 <body>
     <body>
-        <video class="remote-video" autoplay=""></video>
+
+      <div class="row">
+        <div class = "container-fluid">
+            <div class="col sm6">
+              <video id="local-video" autoplay playsinline></video>
+            </div>
+            <div class="col sm6">
+              <video class="remote-video" autoplay playsinline></video>
+            </div>
+
+        </div>
+
+      </div>
+        
         <input type="text" id="connect-to-peer">
-        <button onclick="javascript:connectToPeer()">
+        <button class="btn btn-primary" onclick="javascript:connectToPeer()">
           Connect to Peer
         </button>
         
@@ -89,6 +113,7 @@ footer {
         <div></div>
         </div>
     
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
         <script src="js/peermain.js"></script>
     
