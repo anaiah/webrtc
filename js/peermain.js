@@ -6,135 +6,217 @@
 let messagesEl = document.querySelector('.messages');
 let peerIdEl = document.querySelector('#connect-to-peer');
 let videoEl = document.querySelector('.remote-video');
-let conn = null;
+let conn, peer, peerid
+let localStream, videoElement
 
-let logMessage = (message) => {
-  let newMessage = document.createElement('div');
-  newMessage.innerText = message;
-  messagesEl.appendChild(newMessage);
-};
+const cam = {
+  getParameterByName :(name, url = window.location.href) => {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  },
 
-let renderVideo = (stream) => {
-  videoEl.srcObject = stream;
-};
+  logMessage : (message) => {
+    let newMessage = document.createElement('div');
+    newMessage.innerText = message;
+    messagesEl.appendChild(newMessage);
+  },
+  
+  renderVideo : (stream) => {
+    videoEl.srcObject = stream;
+  },
+  
+  playVideoFromCamera : async () => {
+    console.log('...playing local')
+    try{
+        const constraints = {'video': true, 'audio': true};
+        localStream = await navigator.mediaDevices.getUserMedia(constraints);
+        videoElement = document.querySelector('#local-video');
+        
+        videoElement.srcObject = localStream;
+        
+        videoElement.onloadedmetadata = () => {
+          videoElement.play();
+        };
+  
 
-
-let playVideoFromCamera = async () => {
-  console.log('...playing local')
-try{
-      const constraints = {'video': true, 'audio': true};
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      const videoElement = document.querySelector('#local-video');
-      
-      videoElement.srcObject = stream;
-      
-      videoElement.onloadedmetadata = () => {
-        videoElement.play();
-      };
-      
-  } catch(error) {
-      console.error('Error opening video camera.', error);
-  }
-
-}
-
-
-
-
-// Register with the peer server
-var peer = new Peer(generateRandomDigits(5),{
-  config: {
-
-    iceServers: [
-      {
-      
-        urls: "stun:stun.relay.metered.ca:80",
-      },
-      {
-        urls: "turn:global.relay.metered.ca:80",
-        username: "f096217059fc3f01382d9c82",
-        credential: "oB6ICmYPsM7A2zg4",
-      },
-      {
-        urls: "turn:global.relay.metered.ca:80?transport=tcp",
-        username: "f096217059fc3f01382d9c82",
-        credential: "oB6ICmYPsM7A2zg4",
-      },
-      {
-        urls: "turn:global.relay.metered.ca:443",
-        username: "f096217059fc3f01382d9c82",
-        credential: "oB6ICmYPsM7A2zg4",
-      },
-      {
-        urls: "turns:global.relay.metered.ca:443?transport=tcp",
-        username: "f096217059fc3f01382d9c82",
-        credential: "oB6ICmYPsM7A2zg4",
+      //auto connect for patient
+      if(cam.getParameterByName('id')==="1"){
+        cam.connectToPeer()
+  
       }
-    ]
-
-  } /* Sample servers, please use appropriate ones */
-});
+      
+    } catch(error) {
+        console.error('Error opening video camera.', error);
+    }
   
-//console.log(peer)
-
-peer.on('open', (id) => {
-  logMessage('PEER ID: ' + id);
-  //play local
-  playVideoFromCamera()
-
-});
-peer.on('error', (error) => {
-  logMessage(error);
-});
-
-// Handle incoming data connection from remote peer
-peer.on('connection', (conn) => {
+  },
   
-  logMessage('incoming peer connection makikiraan po!');
-
-  conn.on('open', () => {
-    conn.send("wow praise God You Dialled Me!")
+  //===========start connecting to rtc
+  startPeer : async() =>{
+    peer = new Peer( peerid,{
+      config: {
+        iceServers: [
+          {
+            urls: "stun:stun.relay.metered.ca:80",
+          },
+          {
+            urls: "turn:global.relay.metered.ca:80",
+            username: "f096217059fc3f01382d9c82",
+            credential: "oB6ICmYPsM7A2zg4",
+          },
+          {
+            urls: "turn:global.relay.metered.ca:80?transport=tcp",
+            username: "f096217059fc3f01382d9c82",
+            credential: "oB6ICmYPsM7A2zg4",
+          },
+          {
+            urls: "turn:global.relay.metered.ca:443",
+            username: "f096217059fc3f01382d9c82",
+            credential: "oB6ICmYPsM7A2zg4",
+          },
+          {
+            urls: "turns:global.relay.metered.ca:443?transport=tcp",
+            username: "f096217059fc3f01382d9c82",
+            credential: "oB6ICmYPsM7A2zg4",
+          }
+        ]
     
-      conn.on('data', (data) => {
-        console.log('on data')
-        logMessage(`received: ${data}`);
+      } /* Sample servers, please use appropriate ones */
+    });
     
+    peer.on('open', (id) => {
+      cam.logMessage('PEER ID: ' + id);
+      //play local
+      cam.playVideoFromCamera()
+    
+    });
+    peer.on('error', (error) => {
+      cam.logMessage(error);
+    });
+    
+    // Handle incoming data connection from remote peer
+    peer.on('connection', (conn) => {
+      
+      cam.logMessage('incoming Call...');
+    
+      conn.on('open', () => {
+        conn.send("Doctor Connected!")
+        
+          conn.on('data', (data) => {
+            cam.logMessage(`received: ${data}`);
+        
+          });
       });
+   
+    });
 
-  });
-});
+    
+    
+    // Handle incoming voice/video connection //DIALER
+    peer.on('call', (call) => {
+      navigator.mediaDevices.getUserMedia({video: true, audio: true})
+        .then((stream) => {
+          call.answer(stream); // Answer the call with an A/V stream.
+          call.on('stream', cam.renderVideo);
+        })
+        .catch((err) => {
+          console.error('Failed to get local stream', err);
+        });
+    });
+    
+  },//=======END STARTPEER()
 
-// Handle incoming voice/video connection //DIALER
-peer.on('call', (call) => {
-  navigator.mediaDevices.getUserMedia({video: true, audio: true})
+  //==close peear
+  closePeer: () => {
+    /*
+    // manually close the peer connections
+    for (let conns in peer.connections) {
+      peer.connections[conns].forEach((conn, index, array) => {
+        console.log(`closing ${conn.connectionId} peerConnection (${index + 1}/${array.length})`, conn.peerConnection);
+      
+        conn.peerConnection.close();
+      })
+    }
+      */
+    
+   // console.log(localStream.getTracks() )
+    
+    //stop audio/video tracks
+    
+    localStream.getTracks().forEach((track) => {
+        console.log(track)
+        if (track.readyState == 'live') {
+            track.stop();
+            console.log('stopping ',track.id)
+        }
+    });
+
+    messagesEl.innerHTML=""
+
+    videoElement.srcObject = null
+    
+    let xevent = new KeyboardEvent("keydown", {
+      charCode: 119,
+      keyCode: 'KeyW',
+      key: "w",
+      ctrlKey: true });
+
+    window.dispatchEvent( xevent )
+    
+  },
+
+  // Initiate outgoing connection //DIALLER
+  connectToPeer: () => {
+    let peerId = peerIdEl.value;
+    cam.logMessage(`Connecting to ${peerId}...`);
+    
+    conn = peer.connect(peerId);
+
+    conn.on('data', (data) => {
+      conn.send('hi! I dialled you 2nd peer');
+      cam.logMessage(`received: ${data}`);
+    });
+
+    navigator.mediaDevices.getUserMedia({video: true, audio: true})
     .then((stream) => {
-      call.answer(stream); // Answer the call with an A/V stream.
-      call.on('stream', renderVideo);
+        let call = peer.call(peerId, stream);
+        call.on('stream', cam.renderVideo);
     })
     .catch((err) => {
-      console.error('Failed to get local stream', err);
+        cam.logMessage('Failed to get local stream', err);
     });
-});
+      
+  },//end function connectopeer()
 
-// Initiate outgoing connection //DIALLER
-let connectToPeer = () => {
-  let peerId = peerIdEl.value;
-  logMessage(`Connecting to ${peerId}...`);
-  
-  conn = peer.connect(peerId);
+  //===load first
+  init: ()=>{
+    //THIS WILL EXECUTE FIRST
+    if(cam.getParameterByName('id')==="2"){  //===fordoctors 
+      peerid = cam.getParameterByName('peer')
+      document.getElementById('connect-to-peer').classList.add('lets-hide')
+      document.getElementById('btnclick').classList.add('lets-hide')
+    }else{
+      peerid = cam.getParameterByName('call') //===for patients
+      document.getElementById('connect-to-peer').value= cam.getParameterByName('peer')
+      document.getElementById('connect-to-peer').classList.add('lets-hide')
+      document.getElementById('btnclick').classList.add('lets-hide')
 
-  conn.on('data', (data) => {
-    conn.send('hi! I dialled you 2nd peer');
-    logMessage(`received: ${data}`);
-  });
+    }
+    // Register with the peer server
 
-  navigator.mediaDevices.getUserMedia({video: true, audio: true})
-  .then((stream) => {
-      let call = peer.call(peerId, stream);
-      call.on('stream', renderVideo);
-  })
-  .catch((err) => {
-      logMessage('Failed to get local stream', err);
-  });
-    
-};//end function connectopeer()
+    console.log('playing video form cam')
+    cam.startPeer() //===play client video
+      
+  }//end init
+
+}//===============end obj cam
+
+cam.init()///load
+
+
+
+

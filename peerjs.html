@@ -20,103 +20,63 @@
     
     <style>
         /* this file is loaded by index.html and styles the page */
+      * {
+        box-sizing: border-box;
+      }
 
-* {
-  box-sizing: border-box;
-}
+      body {
+        font-family: sans-serif;
+        margin: 2em 1em;
+        line-height: 1.5em;
 
-body {
-  font-family: sans-serif;
-  margin: 2em 1em;
-  line-height: 1.5em;
+      }
+      .lets-hide{
+        visibility: hidden;
+      }
 
-}
-
-video {
-    border: 2px solid rgba(34, 34, 34, 0.192);
-    width: 220px;
-    height: 140px;
-    border-radius: 8px;
-}
-
-
-h1 {
-  font-style: italic;
-  color: #373fff;
-  max-width: calc(100% - 5rem);
-  line-height: 1.1;
-}
-
-form {
-  background-color: #eee;
-  display: grid;
-  grid-gap: 1em;
-  padding: 1em;
-  max-width: 40ch;
-}
-
-input {
-  border: 1px solid silver;
-  display: block;
-  font-size: 16px;
-  margin-bottom: 10px;
-  padding: 5px;
-  width: 100%;
-}
-
-form button {
-  background-color: #bbbbf2;
-  border: 2px solid currentColor;
-  border-radius: .25em;
-  cursor: pointer;
-  font-size: inherit;
-  line-height: 1.4em;
-  padding: 0.25em 1em;
-  max-width: 20ch;
-}
-
-form button:hover {
-  background-color: lavender;
-}
-
-footer {
-  margin-top: 3em;
-  padding-top: 1.5em;
-  border-top: 1px solid lightgrey;
-}
+      video {
+          border: 2px solid rgba(34, 34, 34, 0.192);
+          width: 220px;
+          height: 140px;
+          border-radius: 8px;
+      }
+      h1 {
+        font-style: italic;
+        color: #373fff;
+        max-width: calc(100% - 5rem);
+        line-height: 1.1;
+      }
 
     </style>
 </head>
+
 <body>
-    <body>
+    <div class="row">
+      <div class="col-sm6">
 
-      <div class="row">
-        <div class = "container-fluid">
-            <div class="col sm6">
-              <video id="local-video" autoplay playsinline></video>
-            </div>
-            <div class="col sm6">
-              <video class="remote-video" autoplay playsinline></video>
-            </div>
-
-        </div>
-
+        <video id="local-video" autoplay playsinline></video>
+        <video class="remote-video" autoplay playsinline></video>
+  
       </div>
-        
-        <input type="text" id="connect-to-peer">
-        <button class="btn btn-primary" onclick="javascript:connectToPeer()">
-          Connect to Peer
-        </button>
-        
-        <div class="messages">
-          
-        <div></div>
-        </div>
+
+    </div>
+
     
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
-        <script src="js/peermain.js"></script>
+    <input type="text" id="connect-to-peer" class="form-control">
+    <button class="btn btn-primary" id="btnclick" onclick="javascript:cam.connectToPeer()">
+      Connect to Peer
+    </button><br>
+
+    <button class="btn btn-warning" id="btnclose" onclick="javascript:cam.closePeer()">
+      HangUp
+    </button>
     
-    </body>
+    <div class="messages">
+      <div></div>
+    </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <script src="js/peermain.js"></script>
 </body>
 </html>
