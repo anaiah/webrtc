@@ -159,13 +159,6 @@ const cam = {
 
     videoElement.srcObject = null
     
-    let xevent = new KeyboardEvent("keydown", {
-      charCode: 119,
-      keyCode: 'KeyW',
-      key: "w",
-      ctrlKey: true });
-
-    window.dispatchEvent( xevent )
     
   },
 
