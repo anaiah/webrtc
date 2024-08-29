@@ -97,6 +97,9 @@ const cam = {
       //////////////////////// patay muna video camera
       //cam.playVideoFromCamera()
       //////////////////////////
+
+      //fetch also patients record
+      cam.getpatienthistory(getParameterByName('uid'),getParameterByName('case'))
     
     });
     peer.on('error', (error) => {
@@ -191,6 +194,46 @@ const cam = {
     });
       
   },//end function connectopeer()
+
+
+  getpatienthistory: async(doc_id,caseno)=>{
+
+    console.log('fired ==== getpatienthistory() ')
+
+    fetch(`http://192.168.158.221:10000/getpatienthistory/${doc_id}/${caseno}`)
+    .then((response) => {  //promise... then
+        return response.text();
+    })
+    .then((text) => {
+        document.getElementById('dashboard').innerHTML=""
+        let txt =`
+        <div class="container-fluid mt-0" id="current_projects"><br><br>
+            <br> 
+            <div class="mbr-section-head" id="xhead">
+                <h3 class="mbr-section-title mbr-fonts-style align-center  display-2">
+                    <strong>Patient Booking</strong>
+                </h3>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p id='p-notif' class="mb-0"> </p>
+                   <div class='row'>
+                        <div id='history'>${text}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <br>
+        </div>`
+
+        document.getElementById('dashboard').innerHTML = txt 
+        util.scrollsTo('dashboard')
+    })
+    .catch((error) => {
+        console.error('Error:', error)
+    })
+
+},
 
   //===load first
   init: ()=>{
