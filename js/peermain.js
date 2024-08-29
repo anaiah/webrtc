@@ -211,7 +211,7 @@ const cam = {
 
     console.log('playing video from cam')
 
-    cam.startPeer() //===play client video
+    ////////// take out muna --cam.startPeer() //===play client video
       
   }//end init
 
