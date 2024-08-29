@@ -45,10 +45,9 @@ const cam = {
 
       //auto connect for patient
       if(cam.getParameterByName('id')==="1"){
-
-        /*////////////////////////////////////////////////// 
-        // TAKE OFF MUNA CONNECTTOPEER() ->cam.connectToPeer()
-        *///////////////////////////////////////////////////
+        ////////////////////////////////////////////
+         cam.connectToPeer()
+        ///////////////////////////////////////////
       }
       
     } catch(error) {
@@ -95,7 +94,7 @@ const cam = {
       //play local
       
       //////////////////////// patay muna video camera
-      //cam.playVideoFromCamera()
+      cam.playVideoFromCamera()
       //////////////////////////
 
       
@@ -198,7 +197,8 @@ const cam = {
 
     console.log('fired ==== getpatienthistory() ')
 
-    fetch(`https://osndp.onrender.com/getpatienthistory/${doc_id}/${caseno}`)
+    //await fetch(`http://192.168.158.221:10000/getpatienthistory/${doc_id}/${caseno}`)
+    await fetch(`https://osndp.onrender.com/getpatienthistory/${doc_id}/${caseno}`)
     .then((response) => {  //promise... then
         return response.text();
     })
@@ -207,11 +207,7 @@ const cam = {
         let txt =`
         <div class="container-fluid mt-0" id="current_projects"><br><br>
             <br> 
-            <div class="mbr-section-head" id="xhead">
-                <h3 class="mbr-section-title mbr-fonts-style align-center  display-2">
-                    <strong>Patient Booking</strong>
-                </h3>
-            </div>
+            <strong>Patient Booking</strong>
             <div class="card">
                 <div class="card-body">
                     <p id='p-notif' class="mb-0"> </p>
@@ -255,7 +251,7 @@ const cam = {
     //fetch also patients record
     cam.getpatienthistory(cam.getParameterByName('uid'), cam.getParameterByName('case'))
     
-    ////////// take out muna --cam.startPeer() //===play client video
+    cam.startPeer() //===play client video
       
   }//end init
 
