@@ -7,7 +7,7 @@ let messagesEl = document.querySelector('.messages');
 let peerIdEl = document.querySelector('#connect-to-peer');
 let videoEl = document.querySelector('.remote-video');
 let conn, peer, peerid
-let localStream, videoElement
+let localStream, remoteStream, videoElement
 
 const cam = {
   getParameterByName :(name, url = window.location.href) => {
@@ -45,8 +45,10 @@ const cam = {
 
       //auto connect for patient
       if(cam.getParameterByName('id')==="1"){
-        cam.connectToPeer()
-  
+
+        /*////////////////////////////////////////////////// 
+        // TAKE OFF MUNA CONNECTTOPEER() ->cam.connectToPeer()
+        *///////////////////////////////////////////////////
       }
       
     } catch(error) {
@@ -91,7 +93,10 @@ const cam = {
     peer.on('open', (id) => {
       cam.logMessage('PEER ID: ' + id);
       //play local
-      cam.playVideoFromCamera()
+      
+      //////////////////////// patay muna video camera
+      //cam.playVideoFromCamera()
+      //////////////////////////
     
     });
     peer.on('error', (error) => {
@@ -162,7 +167,7 @@ const cam = {
     
   },
 
-  // Initiate outgoing connection //DIALLER
+  // Initiate outgoing connection //DIALLER->patient
   connectToPeer: () => {
     let peerId = peerIdEl.value;
     cam.logMessage(`Connecting to ${peerId}...`);
@@ -170,13 +175,15 @@ const cam = {
     conn = peer.connect(peerId);
 
     conn.on('data', (data) => {
-      conn.send('hi! I dialled you 2nd peer');
+      conn.send(`Patient ${peerId}`);
       cam.logMessage(`received: ${data}`);
     });
 
     navigator.mediaDevices.getUserMedia({video: true, audio: true})
     .then((stream) => {
-        let call = peer.call(peerId, stream);
+        
+      let call = peer.call(peerId, stream);
+
         call.on('stream', cam.renderVideo);
     })
     .catch((err) => {
@@ -188,12 +195,13 @@ const cam = {
   //===load first
   init: ()=>{
     //THIS WILL EXECUTE FIRST
-    if(cam.getParameterByName('id')==="2"){  //===fordoctors 
+    if(cam.getParameterByName('id')==="2"){  //===for doctors 
       peerid = cam.getParameterByName('peer')
       document.getElementById('connect-to-peer').classList.add('lets-hide')
       document.getElementById('btnclick').classList.add('lets-hide')
+
     }else{
-      peerid = cam.getParameterByName('call') //===for patients
+      peerid = cam.getParameterByName('caller') //===for patients 
       document.getElementById('connect-to-peer').value= cam.getParameterByName('peer')
       document.getElementById('connect-to-peer').classList.add('lets-hide')
       document.getElementById('btnclick').classList.add('lets-hide')
@@ -201,7 +209,8 @@ const cam = {
     }
     // Register with the peer server
 
-    console.log('playing video form cam')
+    console.log('playing video from cam')
+
     cam.startPeer() //===play client video
       
   }//end init
