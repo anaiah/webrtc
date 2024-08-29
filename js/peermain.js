@@ -200,7 +200,7 @@ const cam = {
 
     console.log('fired ==== getpatienthistory() ')
 
-    fetch(`http://192.168.158.221:10000/getpatienthistory/${doc_id}/${caseno}`)
+    fetch(`https://osndp.onrender.com00/getpatienthistory/${doc_id}/${caseno}`)
     .then((response) => {  //promise... then
         return response.text();
     })
