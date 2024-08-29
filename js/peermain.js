@@ -237,6 +237,9 @@ const cam = {
       document.getElementById('connect-to-peer').classList.add('lets-hide')
       document.getElementById('btnclick').classList.add('lets-hide')
 
+      //fetch also patients record
+      cam.getpatienthistory(cam.getParameterByName('uid'), cam.getParameterByName('case'))  
+
     }else{
       peerid = cam.getParameterByName('caller') //===for patients 
       document.getElementById('connect-to-peer').value= cam.getParameterByName('peer')
@@ -247,9 +250,6 @@ const cam = {
     // Register with the peer server
 
     console.log('playing video from cam')
-    //// get patient history
-    //fetch also patients record
-    cam.getpatienthistory(cam.getParameterByName('uid'), cam.getParameterByName('case'))
     
     cam.startPeer() //===play client video
       
