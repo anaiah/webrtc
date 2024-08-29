@@ -98,9 +98,7 @@ const cam = {
       //cam.playVideoFromCamera()
       //////////////////////////
 
-      //fetch also patients record
-      cam.getpatienthistory(getParameterByName('uid'),getParameterByName('case'))
-    
+      
     });
     peer.on('error', (error) => {
       cam.logMessage(error);
@@ -253,7 +251,10 @@ const cam = {
     // Register with the peer server
 
     console.log('playing video from cam')
-
+    //// get patient history
+    //fetch also patients record
+    cam.getpatienthistory(cam.getParameterByName('uid'), cam.getParameterByName('case'))
+    
     ////////// take out muna --cam.startPeer() //===play client video
       
   }//end init
