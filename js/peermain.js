@@ -27,6 +27,7 @@ const cam = {
   
   renderVideo : (stream) => {
     videoEl.srcObject = stream;
+    videoEl.muted = true
   },
   
   playVideoFromCamera : async () => {
@@ -39,6 +40,7 @@ const cam = {
         videoElement.srcObject = localStream;
         
         videoElement.onloadedmetadata = () => {
+          videoElement.muted=true
           videoElement.play();
         };
   
@@ -175,7 +177,7 @@ const cam = {
     conn = peer.connect(peerId);
 
     conn.on('data', (data) => {
-      conn.send(`Patient ${peerId}`);
+      conn.send(`Patient Connected!`);
       cam.logMessage(`received: ${data}`);
     });
 
