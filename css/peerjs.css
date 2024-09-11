@@ -1,0 +1,73 @@
+/* this file is loaded by index.html and styles the page */
+* {
+box-sizing: border-box;
+}
+
+body {
+font-family: sans-serif;
+margin: 2em 1em;
+line-height: 1.5em;
+
+}
+.lets-hide{
+visibility: hidden;
+}
+/*
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color:lightskyblue!important;
+}
+    */
+#diagnoselabel{
+    color:green;
+}
+#medcertlabel{
+    color:red;
+}
+video {
+    border: 2px solid rgba(34, 34, 34, 0.192);
+    width: 220px;
+    height: 140px;
+    border-radius: 8px;
+}
+h1 {
+font-style: italic;
+color: #373fff;
+max-width: calc(100% - 5rem);
+line-height: 1.1;
+}
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+input:required:is-valid {
+    border-color: green;
+  }
+  input:is-invalid {
+    border-color: red;
+  }
+  input:required:focus:is-valid {
+    background: url("https://assets.digitalocean.com/labs/icons/hand-thumbs-up.svg") no-repeat 95% 50% lightgreen;
+    background-size: 25px;
+  }
+  input:focus:is-invalid {
+    background: url("https://assets.digitalocean.com/labs/icons/exclamation-triangle-fill.svg") no-repeat 95% 50% lightsalmon;
+    background-size: 25px;
+  }
+  .wrong .bi-check-lg
+  {
+      display: none;
+  }
+  .good .bi-x-lg
+  {
+      display: none;
+  }
+  .form-control.is-invalid{
+      border-color:#ff5733;  
+      background-image: url("data:image/svg+xml,%3Csvg%20%20xmlns=%22http://www.w3.org/2000/svg%22%20%20width=%2224%22%20%20height=%2224%22%20%20viewBox=%220%200%2024%2024%22%20%20fill=%22yellow%22%20%20stroke=%22currentColor%22%20%20stroke-width=%222%22%20%20stroke-linecap=%22round%22%20%20stroke-linejoin=%22round%22%20%20class=%22icon%20icon-tabler%20icons-tabler-outline%20icon-tabler-mood-wrrr%22%3E%3Cpath%20stroke=%22none%22%20d=%22M0%200h24v24H0z%22%20fill=%22none%22/%3E%3Cpath%20d=%22M12%2021a9%209%200%201%201%200%20-18a9%209%200%200%201%200%2018z%22%20/%3E%3Cpath%20d=%22M8%2016l1%20-1l1.5%201l1.5%20-1l1.5%201l1.5%20-1l1%201%22%20/%3E%3Cpath%20d=%22M8.5%2011.5l1.5%20-1.5l-1.5%20-1.5%22%20/%3E%3Cpath%20d=%22M15.5%2011.5l-1.5%20-1.5l1.5%20-1.5%22%20/%3E%3C/svg%3E");
+    }
+    .table-condensed{
+      font-size: 12px;
+  
+    }
