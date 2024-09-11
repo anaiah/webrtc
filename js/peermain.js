@@ -26,8 +26,8 @@ const cam = {
   },
   
   renderVideo : (stream) => {
-    videoEl.srcObject = stream;
-    videoEl.muted = true
+    videoEl.srcObject = stream
+    //videoEl.muted = true
   },
   
   playVideoFromCamera : async () => {
@@ -40,10 +40,9 @@ const cam = {
         videoElement.srcObject = localStream;
         
         videoElement.onloadedmetadata = () => {
-          videoElement.muted=true
+          //videoElement.muted=true
           videoElement.play();
         };
-  
 
       //auto connect for patient
       if(cam.getParameterByName('id')==="1"){
@@ -96,10 +95,9 @@ const cam = {
       //play local
       
       //////////////////////// patay muna video camera
-      cam.playVideoFromCamera()
+      //cam.playVideoFromCamera()
       //////////////////////////
-
-      
+  
     });
     peer.on('error', (error) => {
       cam.logMessage(error);
@@ -107,21 +105,16 @@ const cam = {
     
     // Handle incoming data connection from remote peer
     peer.on('connection', (conn) => {
-      
       cam.logMessage('incoming Call...');
     
       conn.on('open', () => {
         conn.send("Doctor Connected!")
-        
           conn.on('data', (data) => {
             cam.logMessage(`received: ${data}`);
-        
           });
       });
    
     });
-
-    
     
     // Handle incoming voice/video connection //DIALER
     peer.on('call', (call) => {
@@ -153,18 +146,41 @@ const cam = {
    // console.log(localStream.getTracks() )
     
     //stop audio/video tracks
-    
-    localStream.getTracks().forEach((track) => {
-        console.log(track)
+    if(cam.getParameterByName('id')==="2"){  //===for doctors 
+      localStream.getTracks().forEach((track) => {
+        /////console.log(track)
         if (track.readyState == 'live') {
             track.stop();
-            console.log('stopping ',track.id)
+            //console.log('stopping ',track.id)
         }
-    });
+      });
+      videoElement.srcObject = null
+    
+    }else{
+      localStream.getTracks().forEach((track) => {
+        //console.log(track)
+        if (track.readyState == 'live') {
+            track.stop();
+            //console.log('stopping ',track.id)
+        }
+      });
+      videoElement.srcObject = null
+    
+      remoteStream.getTracks().forEach((track) => {
+        //console.log(track)
+        if (track.readyState == 'live') {
+            track.stop();
+            //console.log('stopping ',track.id)
+        }
+      });
+      videoEl.srcObject =  null
+    }
+   
+/*
+    */
 
     messagesEl.innerHTML=""
 
-    videoElement.srcObject = null
     
     
   },
@@ -185,7 +201,7 @@ const cam = {
     .then((stream) => {
         
       let call = peer.call(peerId, stream);
-
+        remoteStream = stream
         call.on('stream', cam.renderVideo);
     })
     .catch((err) => {
@@ -199,8 +215,8 @@ const cam = {
 
     console.log('fired ==== getpatienthistory() ')
 
-    //await fetch(`http://192.168.158.221:10000/getpatienthistory/${doc_id}/${caseno}`)
-    await fetch(`https://osndp.onrender.com/getpatienthistory/${doc_id}/${caseno}`)
+    await fetch(`http://192.168.89.221:10000/getpatienthistory/${doc_id}/${caseno}`)
+    //await fetch(`https://osndp.onrender.com/getpatienthistory/${doc_id}/${caseno}`)
     .then((response) => {  //promise... then
         return response.text();
     })
@@ -222,14 +238,139 @@ const cam = {
             <br>
         </div>`
 
+        
         document.getElementById('dashboard').innerHTML = txt 
         util.scrollsTo('dashboard')
+
+        document.getElementById('femail').value = document.getElementById('patient_email').value 
+        document.getElementById('fdoclicense').value = document.getElementById('doc_license').value 
+        
     })
     .catch((error) => {
         console.error('Error:', error)
     })
 
-},
+  }, //===end patient history
+
+  //===== rx cart
+  rxcart:[],
+  orx:{},
+  afields:['fdrug','fdosage','fqty','fduration'],
+  afieldname:['Drug','Dosage','Qty','Duration'],
+
+  checkrxcart:()=>{
+    console.log('===checkrxcart()=====')
+    let cnt = 0
+
+    cam.afields.some(function(item,index){
+   
+      if(document.getElementById(item).value == ""){
+         
+        cnt ++
+
+        Toastify({
+          text: ` ${cam.afieldname[index]} field is required!`,
+          duration:3000,
+         // close:true,
+          position:'center',
+          escapeMarkup:false, //to create html
+          style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+          }
+        }).showToast();
+        
+        document.getElementById(item).focus()
+        
+        return true; //===exit ffrom the  loop
+
+      }//eif
+
+      console.log("item is :"+item+" index is : "+index);
+    });
+
+    //if  everything ok add to cart
+    if(cnt<=0){
+      cam.addtorx()
+    
+    }
+    
+  },
+
+  //add to cart
+  addtorx:()=>{
+  
+    console.log('addtorx()====')
+   
+  
+    /*
+    cam.afields.forEach( (element) => {
+      if(document.getElementById(element).value == ""){
+        let  idx = cam.afields.indexOf( element )
+        console.log( 'fieldname---', idx )
+        Toastify({
+          text: ` ${element, cam.afieldname[idx]} field is required!`,
+          duration:3000,
+         // close:true,
+          position:'center',
+          escapeMarkup:false, //to create html
+          style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+          }
+        }).showToast();
+        return true;
+        
+      }//eif
+      
+    })
+  */
+    cam.orx.meds = document.getElementById('fdrug').value.toUpperCase()
+    cam.orx.dosage = document.getElementById('fdosage').value
+    cam.orx.qty = document.getElementById('fqty').value
+    cam.orx.duration = document.getElementById('fduration').value
+    
+    cam.rxcart.push( cam.orx )
+
+    console.log('shopping cart content ==========', cam.rxcart)
+    
+    var table = document.getElementById("rxlist"),
+    tbody = table.getElementsByTagName("tbody")[0],
+    cell, row
+
+    console.log( Object.keys( cam.orx).length )
+    //====end for
+    for(var i = 0; i  < 1 ;  ++i)
+      {
+        row = document.createElement("tr");
+        
+        // helpful also ---> for( let xkey in Object.keys( cam.orx).length ){
+        for (let property in cam.orx) {
+          console.log('key:' + property, 'value:'+ cam.orx[property]);
+          cell= document.createElement("td")
+          cell.innerHTML = cam.orx[property]
+          row.appendChild( cell )
+
+        }//end for
+
+        tbody.appendChild( row )        
+        //prints out 1, 2, 3, 4, 5
+      }
+    
+    cam.resetformcart()
+  
+  },
+
+  resetformcart:()=>{
+    console.log('===resetformcart()====')
+
+    cam.afields.forEach( (element) => {
+      document.getElementById(element).value = ""
+    })
+    
+    cam.orx = {} //reset cart obj
+
+    document.getElementById('fdrug').focus()
+    
+  },
 
   //===load first
   init: ()=>{
@@ -242,19 +383,45 @@ const cam = {
       //fetch also patients record
       cam.getpatienthistory(cam.getParameterByName('uid'), cam.getParameterByName('case'))  
 
+      
     }else{
-      peerid = cam.getParameterByName('caller') //===for patients 
+      peerid = cam.getParameterByName('patient') //===for patients 
       document.getElementById('connect-to-peer').value= cam.getParameterByName('peer')
       document.getElementById('connect-to-peer').classList.add('lets-hide')
       document.getElementById('btnclick').classList.add('lets-hide')
+      document.getElementById('btnrx').classList.add('lets-hide')
+      
 
     }
-    // Register with the peer server
-
+    
     console.log('playing video from cam')
+    cam.playVideoFromCamera()
     
     cam.startPeer() //===play client video
-      
+    //===vaidate form
+    util.loadFormValidation('#medrxForm')
+
+   
+    document.getElementById('fcaseno').value = cam.getParameterByName('case')
+    
+    
+    const curr_date = util.getDate()
+    
+    const curr_pos = cam.getParameterByName('patient').lastIndexOf('-')
+    const patient_name = cam.getParameterByName('patient').substring(0, curr_pos);
+
+    const doc_pos   = cam.getParameterByName('peer').lastIndexOf('-')
+    const doc_name =  cam.getParameterByName('peer').substring(0, doc_pos);
+
+   // let  xvalue = `${curr_date}\n\n To whom it may concern,\n\nThis is to certify that ${patient_name}, of legal age, residing in ( City, Manila ), is diagnosed with Ulcer and is required to rest for "one" (1) week.\n\nThis medical certificate is being issued for whatever purposes it may serve my patient.\n`
+    
+    //console.log(xvalue)
+    //test medcert
+    document.getElementById('fpatient').value = patient_name
+    document.getElementById('fdoctor').value = doc_name
+
+    //document.getElementById('fmedcert').value =  xvalue
+
   }//end init
 
 }//===============end obj cam

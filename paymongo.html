@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+<div>
+<iframe id="gcash" name="gcash" src="" height="300px" width="400px" ></iframe>
+
+</div>
+</body>
+
+<script>
+let iframe = document.getElementById('gcash')
+let obj = { data:{ attributes: {}}}
+        obj.data.attributes.amount = 150000
+        obj.data.attributes.description = 'OVU Healtchcare checkup for Liza'
+
+const pay = {
+    refno:null,
+    //pay gcash
+    paygcash:async()=>{
+
+        const options = {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'content-type': 'application/json',
+                authorization: 'Basic c2tfdGVzdF90a3FDZzlzempaQUQxOWNHRDczclpZMmQ6'
+            },
+            body: JSON.stringify(obj)
+        };
+
+        fetch('https://api.paymongo.com/v1/links', options)
+            .then( (response) => {
+                return response.json() // if the response is a JSON object
+            })
+            .then( (data) =>{
+
+                
+                console.log( data )
+                pay.refno = data.data.attributes.reference_number
+
+                iframe.src = data.data.attributes.checkout_url
+                
+                
+                
+                //window.location.href = data.data.attributes.checkout_url
+                
+            })
+            // Handle the success response object
+            .catch( (error) => {
+                console.log(error) // Handle the error response object
+            });
+    },//==== end paygcash =====
+
+    checkRefPaid:(ref)=>{
+        const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            authorization: 'Basic c2tfdGVzdF90a3FDZzlzempaQUQxOWNHRDczclpZMmQ6'
+        }
+        };
+
+        fetch(`https://api.paymongo.com/v1/links?reference_number=${ref}`, options)
+        .then( (response) => {
+                return response.json() // if the response is a JSON object
+            })
+            .then( (data) =>{
+                console.log(data)
+                alert(`CUSTOMER IS ${data.data[0].attributes.status.toUpperCase()}`)
+                
+            })
+            // Handle the success response object
+            .catch( (error) => {
+                console.log(error) // Handle the error response object
+            });
+    }
+
+}
+pay.paygcash()//
+//pay.checkRefPaid('UvBqusE')
+console.log(obj)
+</script>
+
+</html>
