@@ -15,10 +15,19 @@
 </body>
 
 <script>
-let iframe = document.getElementById('gcash')
-let obj = { data:{ attributes: {}}}
-        obj.data.attributes.amount = 150000
-        obj.data.attributes.description = 'OVU Healtchcare checkup for Liza'
+var oldsrc = ""
+var asrc = [""]
+var iframe = document.getElementById("gcash");
+
+iframe.addEventListener('load', (event) => {
+  console.log('ayos' );
+
+    let frameContent = iframe.contentWindow.document.body.innerHTML;
+        console.log('===CONTENT====',  frameContent)
+
+}, false);
+
+
 
 const pay = {
     refno:null,
@@ -32,7 +41,7 @@ const pay = {
                 'content-type': 'application/json',
                 authorization: 'Basic c2tfdGVzdF90a3FDZzlzempaQUQxOWNHRDczclpZMmQ6'
             },
-            body: JSON.stringify(obj)
+            body: JSON.stringify({data: {attributes: {amount: 20000, qty: 1, description: 'OVU Healtchcare checkup'}}})
         };
 
         fetch('https://api.paymongo.com/v1/links', options)
@@ -41,6 +50,7 @@ const pay = {
             })
             .then( (data) =>{
 
+                
                 
                 console.log( data )
                 pay.refno = data.data.attributes.reference_number
@@ -85,7 +95,7 @@ const pay = {
 }
 pay.paygcash()//
 //pay.checkRefPaid('UvBqusE')
-console.log(obj)
+
 </script>
 
 </html>

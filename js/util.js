@@ -18,6 +18,7 @@ const util = {
         let aForms = [eHashFrm] 
         let aFormx
     
+        
         //loop all forms
         aForms.forEach( (element) => {
             aFormx = document.querySelectorAll(element)
@@ -28,7 +29,10 @@ const util = {
                 Array.from(aFormz.elements).forEach((input) => {
                     if(!input.classList.contains('p1') &&
                         !input.classList.contains('p2')){//process only non-password field
+
+                            //console.log(input)
                             input.addEventListener('keyup',(e)=>{
+                                //console.log('keyup')
                                 if(input.checkValidity()===false){
                                     input.classList.remove('is-valid')
                                     input.classList.add('is-invalid')
@@ -40,6 +44,7 @@ const util = {
                                 } //eif
                             },false)
                             input.addEventListener('blur',(e)=>{
+                                //console.log('nagblur')
                                 if(input.checkValidity()===false){
                                     input.classList.remove('is-valid')
                                     input.classList.add('is-invalid')
@@ -75,10 +80,12 @@ const util = {
             if(input.classList.contains(classX)){
                 aValid.push(input.checkValidity())
                 if(input.checkValidity()===false){
-                console.log('invalid ',input)
+                    console.log('invalid ',input)
                     input.classList.add('is-invalid')
+                    input.classList.remove('is-valid')
                 }else{
-                input.classList.add('is-valid')
+                    input.classList.add('is-valid')
+                    input.classList.remove('is-invalid')
                 }
             }
         })
@@ -103,6 +110,32 @@ const util = {
             
             //=== POST NA!!!
             switch(frm){ 
+
+
+                case "#examform":
+                
+                    let xform = document.getElementById('examform')
+                    xform.reset()
+                    
+                    util.resetFormClass('#examform')
+
+                    Toastify({
+                        text: '<i class="fa fa-spinner fa-pulse fa-fw"></i> Saving to Database..',
+                        duration:2000,
+                        close:false,
+                        position:'center',
+                        offset:{
+                            x: 0,
+                            y:100//window.innerHeight/2 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+                        },
+                        escapeMarkup:false, //to create html
+                        style: {
+                          
+                          background: "linear-gradient(to right, #00b09b, #96c93d)",
+                        }
+                    }).showToast();
+                
+                break
 
                 case '#medrxForm':
                     xmsg = "<div><i class='fa fa-spinner fa-pulse' ></i>  Saving to Database please wait...</div>"
@@ -213,6 +246,7 @@ const util = {
         
         //off keyboard cofig
         const configObj = { keyboard: false, backdrop:'static' }
+        
         switch( modalToShow ){
             
             case "medrxmodal":
@@ -220,6 +254,13 @@ const util = {
                 medrxmodal.show()
 
             break
+
+            case "exammodal":
+                const exammodal =  new bootstrap.Modal(document.getElementById(modalToShow), configObj);
+                exammodal.show()
+        
+            break
+
         }//switch end
     },
 
