@@ -110,30 +110,14 @@ const util = {
             
             //=== POST NA!!!
             switch(frm){ 
-
-
                 case "#examform":
                 
-                    let xform = document.getElementById('examform')
-                    xform.reset()
-                    
-                    util.resetFormClass('#examform')
+                    //bgc.savetodb(`https://osndp.onrender.com/medrxpost`,objfrm)
+                    bgc.savetodb(`http://192.168.54.221:10000/bgc/savetodb`,objfrm)
 
-                    Toastify({
-                        text: '<i class="fa fa-spinner fa-pulse fa-fw"></i> Saving to Database..',
-                        duration:2000,
-                        close:false,
-                        position:'center',
-                        offset:{
-                            x: 0,
-                            y:100//window.innerHeight/2 // vertical axis - can be a number or a string indicating unity. eg: '2em'
-                        },
-                        escapeMarkup:false, //to create html
-                        style: {
-                          
-                          background: "linear-gradient(to right, #00b09b, #96c93d)",
-                        }
-                    }).showToast();
+                    //===to close toastify
+                    ///var toastclose = document.querySelector('.toastify')
+                    //toastclose.classList.add('hide-me')
                 
                 break
 

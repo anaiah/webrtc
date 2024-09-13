@@ -232,6 +232,22 @@ input:focus:is-invalid {
             <div class="modal-body">
                 <div class="container-fluid" >
                     <form id="examform" name="examform" class="needs-validation">
+                
+                    <div class="row">
+                        <div class="col-lg mb-3">
+                            <div class="form-outline">
+                                <label class="form-label mb-0" for="judge_name">Judge Name</label>
+                                <input required type="text" id="judge_name" name="judge_name" class="form-control regx" />
+                                <div class="invalid-feedback">
+                                    Required field
+                                </div>
+                                <div class="valid-feedback">
+                                    Looking Good!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="row">
                         <div class="col-lg mb-3">
                             <div class="form-outline">
@@ -249,7 +265,7 @@ input:focus:is-invalid {
                         <div class="col-lg mb-3">
                             <div class="form-outline">
                                 <label class="form-label mb-0" for="rname">Full Name</label>
-                                <input required type="text" id="rname" name="rname" class="form-control regx" />
+                                <input required type="text" id="full_name" name="full_name" class="form-control regx" />
                                 <div class="invalid-feedback">
                                     Required field
                                 </div>
