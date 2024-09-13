@@ -112,8 +112,8 @@ const util = {
             switch(frm){ 
                 case "#examform":
                 
-                    //bgc.savetodb(`https://osndp.onrender.com/medrxpost`,objfrm)
-                    bgc.savetodb(`http://192.168.54.221:10000/bgc/savetodb`,objfrm)
+                    bgc.savetodb(`https://osndp.onrender.com/bgc/savetodb`,objfrm)
+                    //bgc.savetodb(`http://192.168.54.221:10000/bgc/savetodb`,objfrm)
 
                     //===to close toastify
                     ///var toastclose = document.querySelector('.toastify')
