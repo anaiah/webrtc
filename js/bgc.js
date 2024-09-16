@@ -227,21 +227,7 @@ const bgc = {
     },
 
     savetodb:async function(url="",xdata={}){
-        Toastify({
-            text: '<i class="fa fa-spinner fa-pulse fa-fw"></i> Saving to Database..',
-            duration:0,
-            close:false,
-            position:'center',
-            offset:{
-                x: 0,
-                y:100//window.innerHeight/2 // vertical axis - can be a number or a string indicating unity. eg: '2em'
-            },
-            escapeMarkup:false, //to create html
-            style: {
-              
-              background: "linear-gradient(to right, #00b09b, #96c93d)",
-            }
-        }).showToast();
+        util.Toasted('<i class="fa fa-spinner fa-pulse fa-fw"></i> Saving to Database..',0 )
 
         fetch(url,{
             method:'POST',
@@ -257,16 +243,20 @@ const bgc = {
         .then((data) => {
             if(data.status){
                 
-                bgc.speak(data.voice)
+                bgc.speak(data.voice) // speak message
 
+                //reset form
                 let xform = document.getElementById('examform')
                 xform.reset()
-                            
+
+                //reset class in form            
                 util.resetFormClass('#examform')
 
+                //close Toastify()
                 var toastclose = document.querySelector('.toastify')
                 toastclose.classList.add('hide-me')
-                console.log(data.voice)
+                
+                console.log('===Data==', data)
             }
         })
         .catch((error) => {
@@ -280,7 +270,7 @@ const bgc = {
     //===MAIN
     init:()=>{
         console.log('ola, espanyol ka?')
-        bgc.speak('WELCOME TO THE UNOFFICIAL CCF BGC EXALT SITE!')
+        ////////bgc.speak('WELCOME TO THE UNOFFICIAL CCF BGC EXALT SITE!')
     }
         
 }//=======================END MAINOBJECT

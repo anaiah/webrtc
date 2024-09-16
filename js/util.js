@@ -284,6 +284,25 @@ const util = {
             input.classList.remove('is-invalid')
         })
     },
+
+    Toasted: (cText, nTime ) => {
+        Toastify({
+            text: cText,//'<i class="fa fa-spinner fa-pulse fa-fw"></i> Saving to Database..',
+            duration: nTime,
+            close:false,
+            position:'center',
+            offset:{
+                x: 0,
+                y:100//window.innerHeight/2 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+            },
+            escapeMarkup:false, //to create html
+            style: {
+              
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
+            }
+        }).showToast();
+    
+    }
 }//end obj main util
 
 
