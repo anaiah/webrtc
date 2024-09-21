@@ -273,7 +273,7 @@ style="background-image: url(./assets/images/ccfexalt.jpg); background-repeat: n
                     <div class="row">
                         <div class="col-lg mb-3">
                             <div class="form-outline">
-                                <label class="xlabel form-label mb-0" for="user_type">Examinee Group</label>
+                                <label class="xlabel form-label mb-0" for="user_type">Candidate Group</label>
                                 <select  onchange="javascript:bgc.loader(this.value)" class="form-control regx" id="exam_type" name="exam_type">
                                     <option selected value="">--Pls Select--</option>
                                     <option value="singers">Singer</option>
@@ -282,12 +282,28 @@ style="background-image: url(./assets/images/ccfexalt.jpg); background-repeat: n
                             </div>
                         </div>
                     </div>
-                          
+                    
+                    <div class="row">
+                        <div class="col-lg mb-3">
+                            <div class="form-outline">
+                                <label class="xlabel form-label mb-0" for="candidate_talent">Voice / Instrument</label>
+                                
+                                <select required class="form-control regx" id="candidate_talent" name="candidate_talent">
+                                    
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="row">
                         <div class="col-lg mb-3">
                             <div class="form-outline">
                                 <label class="xlabel form-label mb-0" for="rname">Candidate Name</label>
-                                <input required type="text" id="full_name" name="full_name" class="form-control regx" />
+                                
+                                <select required class="form-control regx" id="full_name" name="full_name">
+                                    
+                                </select>
+                                
                                 <div class="invalid-feedback">
                                     Required field
                                 </div>
