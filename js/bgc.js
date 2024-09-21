@@ -219,8 +219,8 @@ const bgc = {
         bgc.loadData('candidate_talent', aCatType, document.getElementById('exam_type').value)
         bgc.loadData('full_name',aCandidate,'candidate')
 
-        //await fetch(`https://osndp.onrender.com/bgc/getexam/${category}`,{
-        await fetch(`http://192.168.199.221:10000/bgc/getexam/${category}`,{
+        await fetch(`https://osndp.onrender.com/bgc/getexam/${category}`,{
+        //await fetch(`http://192.168.199.221:10000/bgc/getexam/${category}`,{
             method:'GET',
             //cache:'reload',
             
@@ -383,7 +383,7 @@ const bgc = {
         .then((data) => {
             if(data.status){
                 score = 0
-                
+
                 bgc.speak(data.voice) // speak message
 
                 //reset form
