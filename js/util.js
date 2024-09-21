@@ -113,7 +113,7 @@ const util = {
                 case "#examform":
                 
                     bgc.savetodb(`https://osndp.onrender.com/bgc/savetodb`,objfrm) 
-                    //bgc.savetodb(`http://192.168.54.221:10000/bgc/savetodb`,objfrm)
+                    //bgc.savetodb(`http://192.168.28.221:10000/bgc/savetodb`,objfrm)
 
                     //===to close toastify
                     ///var toastclose = document.querySelector('.toastify')
@@ -240,9 +240,20 @@ const util = {
             break
 
             case "exammodal":
+
+
+             //locastorage
+             let db = window.localStorage
+             let user = db.getItem('ccfuser')
+    
+             if(user == "" || !user ){
+                 util.Toasted('PLEASE LOGIN FIRST!',3000)
+                 return
+             }else{
                 const exammodal =  new bootstrap.Modal(document.getElementById(modalToShow), configObj);
                 exammodal.show()
-        
+             }
+
             break
 
         }//switch end
@@ -286,7 +297,7 @@ const util = {
     },
 
     Toasted: (cText, nTime ) => {
-        Toastify({
+        new Toastify({
             text: cText,//'<i class="fa fa-spinner fa-pulse fa-fw"></i> Saving to Database..',
             duration: nTime,
             close:false,
@@ -300,7 +311,7 @@ const util = {
               
               background: "linear-gradient(to right, #00b09b, #96c93d)",
             }
-        }).showToast();
+        }).showToast()
     
     }
 }//end obj main util

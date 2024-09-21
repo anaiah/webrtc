@@ -4,13 +4,13 @@
   <!-- Site made with Mobirise Website Builder v5.3.0, https://mobirise.com -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Mobirise v5.3.0, mobirise.com">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="assets/images/ccfexat-128x72.png" type="image/x-icon">
   <meta name="description" content="Unofficial CCF BGC Exalt website">
   
   
-  <title>CCF BGC EXALT</title>
+  <title>CCF BGC EXALT (Unofficial)</title>
   <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
   <link rel="stylesheet" href="assets/tether/tether.min.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -77,22 +77,33 @@
         border-color:#ff5733;  
         background-image: url("data:image/svg+xml,%3Csvg%20%20xmlns=%22http://www.w3.org/2000/svg%22%20%20width=%2224%22%20%20height=%2224%22%20%20viewBox=%220%200%2024%2024%22%20%20fill=%22yellow%22%20%20stroke=%22currentColor%22%20%20stroke-width=%222%22%20%20stroke-linecap=%22round%22%20%20stroke-linejoin=%22round%22%20%20class=%22icon%20icon-tabler%20icons-tabler-outline%20icon-tabler-mood-wrrr%22%3E%3Cpath%20stroke=%22none%22%20d=%22M0%200h24v24H0z%22%20fill=%22none%22/%3E%3Cpath%20d=%22M12%2021a9%209%200%201%201%200%20-18a9%209%200%200%201%200%2018z%22%20/%3E%3Cpath%20d=%22M8%2016l1%20-1l1.5%201l1.5%20-1l1.5%201l1.5%20-1l1%201%22%20/%3E%3Cpath%20d=%22M8.5%2011.5l1.5%20-1.5l-1.5%20-1.5%22%20/%3E%3Cpath%20d=%22M15.5%2011.5l-1.5%20-1.5l1.5%20-1.5%22%20/%3E%3C/svg%3E");
     }
+    .xlabel{
+        color:green
+    }
 
   </style>
   
 </head>
 <body >
 
-  <section class="menu menu1 cid-tTHIGaVyY6" once="menu" id="menu1-0">
+<section class="menu menu1 cid-tTHIGaVyY6" once="menu" id="menu1-0">
        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
         <div class="container-fluid">
             <div class="navbar-brand">
                 <span class="navbar-logo">
+<!--                     
                     <a href="javascript:void(0)">
                         <img src="assets/images/ccf1-170x102.jpg" alt="CCF BGC" style="height: 3rem;">
+                    </a> -->
+                    <a href="javascript:void(0)">
+                        <img src="assets/images/ccfexat-128x72.png" alt="exalt" stye="height:20rem;">
                     </a>
                 </span>
-                <span class="navbar-caption-wrap"><a class="navbar-caption text-success display-4" href="javascript:void(0)">Exalt Ministry</a></span>
+                <span class="navbar-caption-wrap">
+                    <a class="navbar-caption text-success display-4" href="javascript:void(0)">
+                        &nbsp;
+                    </a>
+                </span>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <div class="hamburger">
@@ -106,12 +117,17 @@
                 <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                     <li class="nav-item">
                         <a class="nav-link link text-white display-4" href="javascript:util.scrollsTo('cody')">
-                            About us
+                            <i class="fa fa-info-circle"></i>&nbsp;&nbsp;About Us
+                        </a>
+                    </li>
+                    <li class="nav-item"></li>
+                        <a class="nav-link link text-white display-4" href="javascript:bgc.login()">
+                            <i class="fa fa-user-circle-o"></i>&nbsp;&nbsp;Login
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link link text-white display-4" href="javascript:util.modalShow('exammodal')">
-                            Exam
+                            <i class="fa fa-pencil"></i>&nbsp;&nbsp;Exam
                         </a>
                     </li>
                 </ul>
@@ -226,24 +242,24 @@ style="background-image: url(./assets/images/ccfexalt.jpg); background-repeat: n
 
 
 <!-- modals -->
-<div class="modal fade calendar-modal" id="exammodal" name="exammodal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="exammodal" name="exammodal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exammodalLabel">CCF BGC </h5>
+                <h5 class="modal-title" id="exammodalLabel"><img src="assets/images/ccftest.png" style="height:3rem;"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid" >
-                    <form id="examform" name="examform" class="needs-validation">
+                    <form style='width:85%' id="examform" name="examform" class="needs-validation">
                 
                     <div class="row">
                         <div class="col-lg mb-3">
                             <div class="form-outline">
-                                <label class="form-label mb-0" for="judge_name">Judge Name</label>
-                                <input required type="text" id="judge_name" name="judge_name" class="form-control regx" />
+                                <label class="xlabel form-label mb-0" for="judge_name">Judge Name</label>
+                                <input readonly style="text-transform:uppercase" required type="text" id="judge_name" name="judge_name" class="form-control regx" />
                                 <div class="invalid-feedback">
                                     Required field
                                 </div>
@@ -257,10 +273,10 @@ style="background-image: url(./assets/images/ccfexalt.jpg); background-repeat: n
                     <div class="row">
                         <div class="col-lg mb-3">
                             <div class="form-outline">
-                                <label class="form-label mb-0" for="user_type">Examinee Group</label>
+                                <label class="xlabel form-label mb-0" for="user_type">Examinee Group</label>
                                 <select  onchange="javascript:bgc.loader(this.value)" class="form-control regx" id="exam_type" name="exam_type">
                                     <option selected value="">--Pls Select--</option>
-                                    <option value="singer">Singer</option>
+                                    <option value="singers">Singer</option>
                                     <option value="instrumentalist">Instrumentalist</option>
                                 </select>
                             </div>
@@ -270,7 +286,7 @@ style="background-image: url(./assets/images/ccfexalt.jpg); background-repeat: n
                     <div class="row">
                         <div class="col-lg mb-3">
                             <div class="form-outline">
-                                <label class="form-label mb-0" for="rname">Full Name</label>
+                                <label class="xlabel form-label mb-0" for="rname">Candidate Name</label>
                                 <input required type="text" id="full_name" name="full_name" class="form-control regx" />
                                 <div class="invalid-feedback">
                                     Required field
@@ -282,8 +298,12 @@ style="background-image: url(./assets/images/ccfexalt.jpg); background-repeat: n
                         </div>
                     </div>
 
-                    <div id="maincontainer"></div>
+                    <div id="maincontainer">
 
+
+                    </div>
+
+                    <!-- Validate form button here? -->
                     <div class="row">
                         <div class="col-lg mb-3">    
                             <button type="button" id="ratebtn" onclick="javascript:util.validateMe('exammodal','#examform','regx')" class="btn btn-success display-4">
@@ -316,13 +336,13 @@ style="background-image: url(./assets/images/ccfexalt.jpg); background-repeat: n
 <script src="assets/formoid/formoid.min.js"></script>  
     
 <input name="animation" type="hidden">
+ 
+<!-- toastify -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="js/util.js"></script>
 
+<script src="js/bgc.js"></script>
 
-  <!-- toastify -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script src="js/util.js"></script>
+</body>
 
-  <script src="js/bgc.js"></script>
-
-  </body>
 </html>

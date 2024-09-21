@@ -52,180 +52,162 @@ const bgc = {
         synth.speak(speakText)
     },//end func speak	
 
-    loader:(elementid)=>{
+    //login 
+    login:()=>{
 
-        console.log(elementid)
-        
-        let txt = null
-        if(elementid==""){
-            return true
-        }
-        if(elementid=="singer"){
-            txt = `
-            <!-- for singers -->
-            <div class="row">
-                <div class="col-lg mb-3">
-                    <div class="form-outline">
-                        <label class="form-label mb-0" for="rq1">Technique / Skill</label>
-                        <input onclick="this.focus()" required type="number" id="technique" name="technique" min="1" max="5" class="form-control regx" />
-                        <div class="invalid-feedback">
-                            Enter Numeric Value 1 to 5
-                        </div>
-                        <div class="valid-feedback">
-                            Looking Good!
-                        </div>
+        const txt = `
+        <form  id='loginform' name='loginform'>
+        <div class="row">
+            <div class="col-lg mb-3">
+                <div class="form-outline">
+                    <label class="xlabel form-label mb-0" for="rname">Enter Username</label>
+                    <input required type="text" id="uid" name="uid"  class="form-control regx" />
+                    <div class="invalid-feedback">
+                        Required field
                     </div>
-                </div>
-                <div class="col-lg mb-3">
-                    <div class="form-outline">
-                        <label class="form-label mb-0" for="rq2">Dynamics</label>
-                        <input required type="number" id="dynamics" name="dynamics" min="1" max="5" class="form-control regx" />
-                        <div class="invalid-feedback">
-                            Enter Numeric Value 1 to 5
-                        </div>
-                        <div class="valid-feedback">
-                            Looking Good!
-                        </div>
+                    <div class="valid-feedback">
+                        Looking Good!
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg mb-3">
-                    <div class="form-outline">
-                        <label class="form-label mb-0" for="rq3">Vocal Quality</label>
-                        <input required type="number" id="vocal_quality" name="vocal_quality" min="1" max="5" class="form-control regx" />
-                        <div class="invalid-feedback">
-                            Enter Numeric Value 1 to 5
-                        </div>
-                        <div class="valid-feedback">
-                            Looking Good!
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg mb-3">
-                    <div class="form-outline">
-                        <label class="form-label mb-0" for="rq4">Harmony</label>
-                        <input required type="number" id="harmony" name="harmony" min="1" max="5" class="form-control regx" />
-                        <div class="invalid-feedback">
-                            Enter Numeric Value 1 to 5
-                        </div>
-                        <div class="valid-feedback">
-                            Looking Good!
-                        </div>
-                    </div>
-                </div>
+        </div>
+        </form>
+        <div class="row">
+            <div class="col align-center">    
+                <button type="button" id="loginbtn" onclick="javascript:bgc.savelogin()" class="btn btn-success display-4">
+                    <i class="fa fa-user"></i>&nbsp;&nbsp;Login
+                </button>
             </div>
-            <div class="row">
-                <div class="col-12 mb-3">
-                    <div class="form-outline">
-                        <label class="form-label mb-0" for="rq5">Stage Presence</label>
-                        <input required type="number" id="stage_presence" name="stage_presence" min="1" max="5" class="form-control regx" />
-                        <div class="invalid-feedback">
-                            Enter Numeric Value 1 to 5
-                        </div>
-                        <div class="valid-feedback">
-                            Looking Good!
-                        </div>
+        </div>
 
-                    </div>
-                </div>
-                <div class="col-12 mb-3">
-                    <div class="form-outline">
-                        &nbsp;
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 mb-3">
-                    <div class="form-outline">
-                        <label class="form-label mb-0" for="remarks">Remarks</label>
-                        <textarea required id="remarks" name="remarks" rows="3" class="form-control regx" ></textarea>
-                        <div class="invalid-feedback">
-                            Pls make a remark!
-                        </div>
-                        <div class="valid-feedback">
-                            Looking Good!
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            `    
+        `
+        util.Toasted(txt,0)
+       
+        const elem = document.getElementById('uid')
+
+        elem.focus()
+
+        util.loadFormValidation('#loginform')
+
+
+
+    },
+    closeToast:()=>{
+        const toastclose = document.querySelector('.toastify')
+        toastclose.classList.add('hide-me')
+    
+    },
+    savelogin:()=>{
+        const uid = document.getElementById('uid').value
+
+        if(uid == ""){
+            return false
         }else{
-            txt = `
-             <!-- INSTRUMENTALIST -->
-            <div class="row">
-                <div class="col-lg mb-3">
-                    <div class="form-outline">
-                        <label class="form-label mb-0" for="rq1">Technique / Skill</label>
-                        <input required type="number" id="technique" name="technique" min=1 max=5 class="form-control regx" />
-                        <div class="invalid-feedback">
-                            Enter Numeric Value 1 to 5
-                        </div>
-                        <div class="valid-feedback">
-                            Looking Good!
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg mb-3">
-                    <div class="form-outline">
-                        <label class="form-label mb-0" for="rq2">Dynamics</label>
-                        <input required type="number" id="dynamics" name="dynamics" min="1" max="5" class="form-control regx" />
-                        <div class="invalid-feedback">
-                            Enter Numeric Value 1 to 5
-                        </div>
-                        <div class="valid-feedback">
-                            Looking Good!
-                        </div>
-                    </div>
-                </div>
-            </div>
+            //locastorage
+            let db = window.localStorage
+            let user = db.getItem('ccfuser')
+   
+            if(user == "" || !user ){
+                db.setItem('ccfuser',uid)
+
+            }else{
+                if(user == uid){
+                    console.log('posting ', db.getItem('ccfuser'))
+                    bgc.closeToast()
+                    document.getElementById('judge_name').value = uid
+                    return true
+                }else{
+                    util.Toasted('Login Error!',2000)
+
+                    console.log('error')
+                    return false
+                }
+    
+            }
             
-            <div class="row">
-                <div class="col-12 mb-3">
-                    <div class="form-outline">
-                        <label class="form-label mb-0" for="rq5">Stage Presence</label>
-                        <input required type="number" id="stage_presence" name="stage_presence" min="1" max="5" class="form-control regx" />
-                        <div class="invalid-feedback">
-                            Enter Numeric Value 1 to 5
+            bgc.closeToast()
+        }
+        //console.log('login')
+    },
+    
+    loader: async (category)=>{
+        util.Toasted('<i class="fa fa-spinner fa-pulse fa-fw"></i> Loading..',2000 )
+        
+        await fetch(`https://osndp.onrender.com/bgc/getexam/${category}`,{
+        //await fetch(`http://192.168.28.221:10000/bgc/getexam/${category}`,{
+            method:'GET',
+            //cache:'reload',
+            
+        })
+        .then((response) => {  //promise... then 
+            return response.json();
+        })
+        .then((data) => {
+            let container = document.getElementById('maincontainer')
+
+            container.innerHTML ="" //reset container
+
+            let oRate = [
+                {cat:"Poor", rate:"1"},
+                {cat:"Fair", rate:"2"},
+                {cat:"Good", rate:"3"},
+                {cat:"Very Good", rate:"4"},
+                {cat:"Excellent", rate:"5"}
+            ]
+            
+            let opt, txt = ''
+            //write to container
+            for(let ikey in data.data){
+
+                for(let xkey in oRate){
+                   opt +=`
+                         <option value='${oRate[xkey].rate}'>${oRate[xkey].cat}</option>
+                         `     
+                 }//end for
+
+                txt += `<div class="row">
+                        <div class="col-lg mb-3">
+                            <div class="form-outline">
+                                <label style="text-transform:capitalize" class="xlabel  form-label mb-0" for="rname">${data.data[ikey].exam_category}</label>
+                                <select required  id="${data.data[ikey].exam_category}-${ikey}" name="${data.data[ikey].exam_category}-${ikey}" class="form-control regx" >
+                                    <option selected value="">--Select Rate--</option>
+                                        ${opt}
+                                </select>
+                                <div class="invalid-feedback">
+                                    Required field
+                                </div>
+                                <div class="valid-feedback">
+                                    Looking Good!
+                                </div>
+                            </div>
                         </div>
-                        <div class="valid-feedback">
-                            Looking Good!
-                        </div>
+                    </div>`
+                
+                //console.log( data.data[ikey].exam_category)
+                opt = ''
+            } // end foreach
+
+            txt += `<div class="row">
+            <div class="col-lg mb-3">
+                <div class="form-outline">
+                    <label class="xlabel form-label mb-0" for="rname">REMARKS</label>
+                    <textarea id="remarks" name="remarks" class="form-control regx" required></textarea>
+                    <div class="invalid-feedback">
+                        Required field
                     </div>
-                </div>
-                <div class="col-12 mb-3">
-                    <div class="form-outline">
-                        &nbsp;
+                    <div class="valid-feedback">
+                        Looking Good!
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 mb-3">
-                    <div class="form-outline">
-                        <label class="form-label mb-0" for="ins_remarks">Remarks</label>
-                        <textarea required id="remarks" name="remarks" rows="3" class="form-control regx" ></textarea>
-                        <div class="invalid-feedback">
-                            Pls make a remark!
-                        </div>
-                        <div class="valid-feedback">
-                            Looking Good!
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div>`
+            container.innerHTML = txt 
+    
+        })
 
-            `
-        }//endif
-
-        document.getElementById('maincontainer').innerHTML = ""
-        document.getElementById('maincontainer').innerHTML = txt
-
-        //if automatic added new fields
-        //then fire loadformvalidation
-        util.loadFormValidation('#examform')
     },
 
+    //==save to db
     savetodb:async function(url="",xdata={}){
         util.Toasted('<i class="fa fa-spinner fa-pulse fa-fw"></i> Saving to Database..',0 )
 
