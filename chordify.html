@@ -35,15 +35,62 @@
             
             let aFind = chords.split(',')
             let pos, c3rd = "", c5th = ""
+            let pass = 0
 
+            let rootChord = document.getElementById('chord').value
+            
+            let triad = []
+            pos = aKey.indexOf(rootChord)
+            
+            /*
+            switch(pos){
+                case 1:
+                case 2:
+                case 5:
+                triad.push( aKey[pos] )
+                triad.push( aKey[pos+2] )
+                triad.push( aKey[pos+4] )
+                break;
+
+                default:
+                triad.push( aKey[pos] )
+                triad.push( aKey[pos+2] )
+                triad.push( aKey[pos+4] )
+                break
+            }
+            */
+            triad.push( aKey[pos] )
+                triad.push( aKey[pos+2] )
+                triad.push( aKey[pos+4] )
+                
+            console.log( 'TRIAD ', triad)
+            
+            
+            // c3rd = triad[pos+1]
+            // c5th = triad[pos-1]
+            
+            
             aFind.forEach( (element) => {
-                pos = aKey.indexOf( element )
-                c3rd += aKey[pos+3] + ", "
-                c5th += aKey[pos+5] + ", "   
-            })
+                pos = triad.indexOf(element )
+                if(pos==0){
+                    c3rd += triad[pos+1]+", "
+                    c5th += triad[pos+2]+", "
+                }
+                if(pos == 1){
+                    c3rd += triad[pos+1]+", "
+                    c5th += triad[pos-1]+", "
+                }
 
-            document.getElementById('3rd').innerHTML = c3rd
-            document.getElementById('5th').innerHTML = c5th
+                if(pos == 2){
+                    c3rd += triad[pos-2]+", "
+                    c5th += triad[pos-1]+", "
+                }
+
+            })//end foreach
+            
+
+            document.getElementById('3rd').value = document.getElementById('3rd').value + c3rd
+            document.getElementById('5th').value = document.getElementById('5th').value + c5th
 
 
         }//
@@ -54,7 +101,7 @@
     <form id="chordfrm" name="chordfrm" class="needs-validation">
      <div class="container">
         <div class="row mb-1 mt-5">
-            <div class="col">
+            <div class="col-6">
                 <select id="xkey" name="xkey" onchange="javascript:getkey(this.value)" class="form-control">
                     <option selected value="">--PLS SELECT KEY--</option>        
                     <option value="aKeyOfC"> Key of C</option>
@@ -73,6 +120,13 @@
             </div>
             
         </div>
+        <div class="row mb-2">
+            <div class="col-3">
+                <label>Chord:</label>
+                <input  class="form-control" id='chord' name='chord' type="text">
+            </div>
+            
+        </div>
         <div class="row">
             <div class="col-sm6 mb-2">
                 <input  class="form-control" id='chords' name='chords' type="text">
@@ -83,14 +137,14 @@
         <div class="row">
             <div class="col-sm6 mb-2">3rd:<br>
                 <!--//3RD-->
-                <div id="3rd"></div>
+                <input  class="form-control" id='3rd' name='3rd' type="text">
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm6 mb-2">5th:<br>
                 <!--//5th-->
-                <div id="5th"></div>
+                <input  class="form-control" id='5th' name='5th' type="text">
             </div>
         </div>
 
