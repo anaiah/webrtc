@@ -24,76 +24,77 @@
         let aKeyOfA = ['A','B','C#','D','E','F#','G#','A2','B2','C#2','D2','E2','F#2','G#2','A3','B3','C#3','D3','E3','F#3','G#3','A4']
         let aKeyOfB = ['B','C#','D#','E','F#','G#','A#','B2','C#2','D#2','E2','F#2','G#2','A#2','B3','C#3','D#3','E3','F#3','G#3','A#3','B4']
 
+        let a3rd = [], a5th = []
+        
+        
         getkey =(xkey)=>{
             aKey = eval(xkey)
             document.getElementById('chordkey').innerHTML = aKey
             console.log( aKey )
+
+            a3rd=[]
+            a5th=[]
 
         }//
 
         findChord = (chords) =>{
             
             let aFind = chords.split(',')
-            let pos, c3rd = "", c5th = ""
-            let pass = 0
 
+            console.log( 'afind', aFind )
+
+            let pos, xpos, c3rd = "", c5th = "" 
+        
             let rootChord = document.getElementById('chord').value
             
             let triad = []
             pos = aKey.indexOf(rootChord)
             
-            /*
-            switch(pos){
-                case 1:
-                case 2:
-                case 5:
-                triad.push( aKey[pos] )
-                triad.push( aKey[pos+2] )
-                triad.push( aKey[pos+4] )
-                break;
-
-                default:
-                triad.push( aKey[pos] )
-                triad.push( aKey[pos+2] )
-                triad.push( aKey[pos+4] )
-                break
-            }
-            */
             triad.push( aKey[pos] )
-                triad.push( aKey[pos+2] )
-                triad.push( aKey[pos+4] )
-                
+            triad.push( aKey[pos+2] )
+            triad.push( aKey[pos+4] )
+            
             console.log( 'TRIAD ', triad)
             
-            
-            // c3rd = triad[pos+1]
-            // c5th = triad[pos-1]
-            
-            
-            aFind.forEach( (element) => {
-                pos = triad.indexOf(element )
-                if(pos==0){
-                    c3rd += triad[pos+1]+", "
-                    c5th += triad[pos+2]+", "
-                }
-                if(pos == 1){
-                    c3rd += triad[pos+1]+", "
-                    c5th += triad[pos-1]+", "
+            aFind.forEach( (melody) => {
+
+                xpos = triad.indexOf(melody)
+                console.log(melody, 'pos is ', xpos)
+
+                if(xpos==-1){
+                    xpos = aKey.indexOf(melody)
+                    c3rd = aKey[xpos-2]
+                    c5th = aKey[xpos+3]
                 }
 
-                if(pos == 2){
-                    c3rd += triad[pos-2]+", "
-                    c5th += triad[pos-1]+", "
+                if(xpos==0){
+                    c3rd = triad[xpos+1]
+                    c5th = triad[xpos+2]
                 }
+                if(xpos == 1){
+                    c3rd = triad[xpos+1]
+                    c5th = triad[xpos-1]
+                }
+
+                if(xpos == 2){
+                    c3rd = triad[xpos-2]
+                    c5th = triad[xpos-1]
+                }
+
+                a3rd.push( c3rd )    
+                a5th.push( c5th ) 
 
             })//end foreach
             
+            document.getElementById('3rd').value = a3rd
+            document.getElementById('5th').value = a5th
 
-            document.getElementById('3rd').value = document.getElementById('3rd').value + c3rd
-            document.getElementById('5th').value = document.getElementById('5th').value + c5th
-
-
+            console.log('3RD', a3rd )
+            console.log('4TH', a5th ) 
+            a3rd=[]
+            a5th=[]
         }//
+    
     </script>
 </head>
 <body>
